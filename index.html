@@ -3,64 +3,1067 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="favicon.png">
-    <title>Fernando Silvano - GitHub Pages</title>
+    <title>Windows 95</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
+            box-sizing: border-box;
         }
-        .header {
-            background-color: #4CAF50;
-            color: white;
-            padding: 1em 0;
+
+        body {
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+            background: #008080;
+            overflow: hidden;
+            height: 100vh;
+            cursor: default;
+            user-select: none;
+        }
+
+        /* Desktop Icons */
+        .desktop {
+            height: calc(100vh - 40px);
+            padding: 10px;
+            position: relative;
+        }
+
+        .icon {
+            width: 80px;
             text-align: center;
-        }
-        .container {
-            padding: 2em;
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .footer {
-            background-color: #333;
+            margin-bottom: 20px;
+            cursor: pointer;
             color: white;
-            text-align: center;
-            padding: 1em 0;
+            text-shadow: 1px 1px 2px black;
+        }
+
+        .icon img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 5px;
+        }
+
+        .icon-label {
+            font-size: 12px;
+            word-wrap: break-word;
+        }
+
+        .icon.selected {
+            background: rgba(0, 0, 128, 0.5);
+            outline: 1px dotted white;
+        }
+
+        /* Taskbar */
+        .taskbar {
             position: fixed;
-            width: 100%;
             bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: #c0c0c0;
+            border-top: 2px solid white;
+            display: flex;
+            align-items: center;
+            padding: 2px;
+            z-index: 10000;
         }
-        a {
-            color: #4CAF50;
-            text-decoration: none;
+
+        .start-button {
+            height: 32px;
+            padding: 0 10px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .start-button:active {
+            border-style: inset;
+        }
+
+        .start-button img {
+            width: 20px;
+            height: 20px;
+        }
+
+        .taskbar-items {
+            flex: 1;
+            display: flex;
+            gap: 4px;
+            margin-left: 4px;
+        }
+
+        .taskbar-item {
+            height: 32px;
+            padding: 0 10px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            max-width: 160px;
+        }
+
+        .taskbar-item.active {
+            border-style: inset;
+        }
+
+        .taskbar-item img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .clock {
+            height: 32px;
+            padding: 0 10px;
+            border: 2px inset #dfdfdf;
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            margin-left: auto;
+        }
+
+        /* Start Menu */
+        .start-menu {
+            position: fixed;
+            bottom: 42px;
+            left: 2px;
+            width: 250px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            display: none;
+            z-index: 9999;
+        }
+
+        .start-menu.show {
+            display: block;
+        }
+
+        .start-menu-header {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: white;
+            padding: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            float: left;
+            height: 300px;
+        }
+
+        .start-menu-items {
+            margin-left: 30px;
+            padding: 5px 0;
+        }
+
+        .start-menu-item {
+            padding: 8px 35px 8px 50px;
+            cursor: pointer;
+            position: relative;
+            font-size: 13px;
+        }
+
+        .start-menu-item:hover {
+            background: #000080;
+            color: white;
+        }
+
+        .start-menu-item img {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+        }
+
+        .start-menu-separator {
+            height: 2px;
+            background: #808080;
+            margin: 2px 0;
+            border-top: 1px solid white;
+        }
+
+        /* Window */
+        .window {
+            position: absolute;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            min-width: 300px;
+            min-height: 200px;
+            display: none;
+            flex-direction: column;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .window.show {
+            display: flex;
+        }
+
+        .window.minimized {
+            display: none;
+        }
+
+        .window-titlebar {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: white;
+            padding: 3px 5px;
+            display: flex;
+            align-items: center;
+            cursor: move;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .window.inactive .window-titlebar {
+            background: linear-gradient(to right, #808080, #A0A0A0);
+        }
+
+        .window-titlebar img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+        .window-title {
+            flex: 1;
+        }
+
+        .window-controls {
+            display: flex;
+            gap: 2px;
+        }
+
+        .window-button {
+            width: 18px;
+            height: 18px;
+            background: #c0c0c0;
+            border: 1px outset #dfdfdf;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .window-button:active {
+            border-style: inset;
+        }
+
+        .window-content {
+            flex: 1;
+            padding: 10px;
+            background: white;
+            overflow: auto;
+        }
+
+        .window-statusbar {
+            height: 25px;
+            border-top: 2px inset #dfdfdf;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            font-size: 11px;
+        }
+
+        /* Computer Window */
+        .computer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .drive-icon {
+            width: 80px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .drive-icon img {
+            width: 48px;
+            height: 48px;
+        }
+
+        .drive-icon:hover {
+            background: rgba(0, 0, 128, 0.1);
+        }
+
+        /* Notepad */
+        .notepad-content {
+            padding: 0;
+        }
+
+        .notepad-content textarea {
+            width: 100%;
+            height: 100%;
+            border: none;
+            padding: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: none;
+        }
+
+        /* About Window */
+        .about-content {
+            text-align: center;
+            padding: 30px;
+        }
+
+        .about-content h2 {
+            color: #000080;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            margin: 10px 0;
+        }
+
+        /* Minesweeper */
+        .minesweeper-content {
+            padding: 0;
+        }
+
+        .minesweeper-header {
+            background: #c0c0c0;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px inset #dfdfdf;
+        }
+
+        .mine-counter, .mine-timer {
+            background: black;
+            color: red;
+            font-family: 'Digital', monospace;
+            font-size: 24px;
+            padding: 5px 10px;
+            border: 2px inset #808080;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .mine-face {
+            width: 40px;
+            height: 40px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mine-board {
+            display: grid;
+            grid-template-columns: repeat(8, 30px);
+            gap: 0;
+            padding: 10px;
+            background: #c0c0c0;
+        }
+
+        .mine-cell {
+            width: 30px;
+            height: 30px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .mine-cell:active {
+            border-style: inset;
+        }
+
+        .mine-cell.revealed {
+            border: 1px solid #808080;
+            background: #bfbfbf;
+        }
+
+        .mine-cell.mine {
+            background: red;
+        }
+
+        /* Internet Explorer */
+        .ie-toolbar {
+            background: #c0c0c0;
+            padding: 5px;
+            border-bottom: 2px groove #808080;
+            display: flex;
+            gap: 5px;
+        }
+
+        .ie-button {
+            padding: 5px 10px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .ie-button:active {
+            border-style: inset;
+        }
+
+        .ie-address-bar {
+            padding: 5px;
+            background: #c0c0c0;
+            border-bottom: 2px groove #808080;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .ie-address-input {
+            flex: 1;
+            padding: 3px;
+            border: 2px inset #dfdfdf;
+            font-size: 12px;
+        }
+
+        .ie-content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Bem-vindo ao meu GitHub Pages</h1>
+    <!-- Desktop -->
+    <div class="desktop" id="desktop">
+        <div class="icon" data-program="mycomputer">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-3.png" alt="My Computer">
+            <div class="icon-label">Meu Computador</div>
+        </div>
+        <div class="icon" data-program="recycle">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" alt="Recycle Bin">
+            <div class="icon-label">Lixeira</div>
+        </div>
+        <div class="icon" data-program="ie">
+            <img src="https://win98icons.alexmeub.com/icons/png/internet_explorer-0.png" alt="Internet Explorer">
+            <div class="icon-label">Internet Explorer</div>
+        </div>
+        <div class="icon" data-program="notepad">
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" alt="Notepad">
+            <div class="icon-label">Bloco de Notas</div>
+        </div>
+        <div class="icon" data-program="minesweeper">
+            <img src="https://win98icons.alexmeub.com/icons/png/game_mine_sweeper_vs-0.png" alt="Minesweeper">
+            <div class="icon-label">Campo Minado</div>
+        </div>
     </div>
-    <div class="container">
-        <h2>Sobre mim</h2>
-        <p>Olá! Eu sou Fernando Silvano, um desenvolvedor apaixonado por tecnologia e código aberto. Aqui você encontrará projetos que estou desenvolvendo e contribuindo.</p>
-        
-        <h2>Projetos</h2>
-        <ul>
-            <li><a href="https://github.com/Fernando-Silvano/projeto1" target="_blank">Projeto 1</a> - Descrição breve do projeto 1.</li>
-            <li><a href="https://github.com/Fernando-Silvano/projeto2" target="_blank">Projeto 2</a> - Descrição breve do projeto 2.</li>
-            <li><a href="https://github.com/Fernando-Silvano/projeto3" target="_blank">Projeto 3</a> - Descrição breve do projeto 3.</li>
-        </ul>
 
-        <h2>Contato</h2>
-        <p>Você pode me encontrar no <a href="https://www.linkedin.com/in/fernando-silvano-46068366/" target="_blank">LinkedIn</a> ou enviar um e-mail para fernando.silvano@outlook.com.br.</p>
+    <!-- Taskbar -->
+    <div class="taskbar">
+        <div class="start-button" id="startButton">
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" alt="Start">
+            <span>Iniciar</span>
+        </div>
+        <div class="taskbar-items" id="taskbarItems"></div>
+        <div class="clock" id="clock">12:00</div>
     </div>
-    <div class="footer">
-        <p>&copy; 2025 Fernando Silvano</p>
+
+    <!-- Start Menu -->
+    <div class="start-menu" id="startMenu">
+        <div class="start-menu-header">Windows 95</div>
+        <div class="start-menu-items">
+            <div class="start-menu-item" data-program="mycomputer">
+                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-3.png" alt="My Computer">
+                Meu Computador
+            </div>
+            <div class="start-menu-item" data-program="notepad">
+                <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" alt="Notepad">
+                Bloco de Notas
+            </div>
+            <div class="start-menu-item" data-program="ie">
+                <img src="https://win98icons.alexmeub.com/icons/png/internet_explorer-0.png" alt="Internet Explorer">
+                Internet Explorer
+            </div>
+            <div class="start-menu-separator"></div>
+            <div class="start-menu-item" data-program="minesweeper">
+                <img src="https://win98icons.alexmeub.com/icons/png/game_mine_sweeper_vs-0.png" alt="Games">
+                Campo Minado
+            </div>
+            <div class="start-menu-separator"></div>
+            <div class="start-menu-item" data-program="about">
+                <img src="https://win98icons.alexmeub.com/icons/png/info_bubble-0.png" alt="About">
+                Sobre o Windows 95
+            </div>
+            <div class="start-menu-item" onclick="alert('Desligando o sistema...')">
+                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_with_computer-0.png" alt="Shutdown">
+                Desligar...
+            </div>
+        </div>
     </div>
+
+    <!-- My Computer Window -->
+    <div class="window" id="mycomputerWindow" style="width: 500px; height: 400px; left: 100px; top: 50px;">
+        <div class="window-titlebar">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-3.png" alt="My Computer">
+            <span class="window-title">Meu Computador</span>
+            <div class="window-controls">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">×</div>
+            </div>
+        </div>
+        <div class="window-content computer-content">
+            <div class="drive-icon">
+                <img src="https://win98icons.alexmeub.com/icons/png/hard_drive-0.png" alt="C:">
+                <div>(C:)</div>
+            </div>
+            <div class="drive-icon">
+                <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-0.png" alt="D:">
+                <div>(D:)</div>
+            </div>
+            <div class="drive-icon">
+                <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive-0.png" alt="A:">
+                <div>(A:)</div>
+            </div>
+            <div class="drive-icon">
+                <img src="https://win98icons.alexmeub.com/icons/png/printer-0.png" alt="Impressoras">
+                <div>Impressoras</div>
+            </div>
+            <div class="drive-icon">
+                <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-0.png" alt="Painel de Controle">
+                <div>Painel de Controle</div>
+            </div>
+        </div>
+        <div class="window-statusbar">5 objetos</div>
+    </div>
+
+    <!-- Notepad Window -->
+    <div class="window" id="notepadWindow" style="width: 600px; height: 400px; left: 150px; top: 100px;">
+        <div class="window-titlebar">
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" alt="Notepad">
+            <span class="window-title">Bloco de Notas - Sem título</span>
+            <div class="window-controls">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">×</div>
+            </div>
+        </div>
+        <div class="window-content notepad-content">
+            <textarea placeholder="Digite seu texto aqui..."></textarea>
+        </div>
+    </div>
+
+    <!-- Internet Explorer Window -->
+    <div class="window" id="ieWindow" style="width: 700px; height: 500px; left: 120px; top: 80px;">
+        <div class="window-titlebar">
+            <img src="https://win98icons.alexmeub.com/icons/png/internet_explorer-0.png" alt="Internet Explorer">
+            <span class="window-title">Internet Explorer</span>
+            <div class="window-controls">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">×</div>
+            </div>
+        </div>
+        <div class="ie-toolbar">
+            <div class="ie-button">Voltar</div>
+            <div class="ie-button">Avançar</div>
+            <div class="ie-button">Parar</div>
+            <div class="ie-button">Atualizar</div>
+            <div class="ie-button">Início</div>
+        </div>
+        <div class="ie-address-bar">
+            <span>Endereço:</span>
+            <input type="text" class="ie-address-input" value="https://www.microsoft.com/" readonly>
+        </div>
+        <div class="window-content" style="padding: 0;">
+            <iframe class="ie-content-frame" src="about:blank"></iframe>
+        </div>
+        <div class="window-statusbar">Concluído</div>
+    </div>
+
+    <!-- Minesweeper Window -->
+    <div class="window" id="minesweeperWindow" style="width: 300px; height: 400px; left: 200px; top: 120px;">
+        <div class="window-titlebar">
+            <img src="https://win98icons.alexmeub.com/icons/png/game_mine_sweeper_vs-0.png" alt="Minesweeper">
+            <span class="window-title">Campo Minado</span>
+            <div class="window-controls">
+                <div class="window-button minimize">_</div>
+                <div class="window-button close">×</div>
+            </div>
+        </div>
+        <div class="minesweeper-content">
+            <div class="minesweeper-header">
+                <div class="mine-counter">010</div>
+                <div class="mine-face" onclick="resetMinesweeper()">🙂</div>
+                <div class="mine-timer">000</div>
+            </div>
+            <div class="mine-board" id="mineBoard"></div>
+        </div>
+    </div>
+
+    <!-- About Window -->
+    <div class="window" id="aboutWindow" style="width: 450px; height: 300px; left: 250px; top: 150px;">
+        <div class="window-titlebar">
+            <img src="https://win98icons.alexmeub.com/icons/png/info_bubble-0.png" alt="About">
+            <span class="window-title">Sobre o Windows 95</span>
+            <div class="window-controls">
+                <div class="window-button close">×</div>
+            </div>
+        </div>
+        <div class="window-content about-content">
+            <h2>Microsoft Windows 95</h2>
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="64" height="64" alt="Windows">
+            <p>Versão 4.00.950</p>
+            <p>Copyright © 1981-1995 Microsoft Corp.</p>
+            <p style="margin-top: 20px; font-size: 11px;">Esta é uma recreação web do Windows 95</p>
+            <p style="font-size: 11px;">Criado com HTML, CSS e JavaScript</p>
+        </div>
+    </div>
+
+    <!-- Recycle Bin Window -->
+    <div class="window" id="recycleWindow" style="width: 500px; height: 400px; left: 130px; top: 70px;">
+        <div class="window-titlebar">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" alt="Recycle Bin">
+            <span class="window-title">Lixeira</span>
+            <div class="window-controls">
+                <div class="window-button minimize">_</div>
+                <div class="window-button maximize">□</div>
+                <div class="window-button close">×</div>
+            </div>
+        </div>
+        <div class="window-content" style="text-align: center; padding-top: 50px; color: #808080;">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" width="64" height="64" alt="Empty">
+            <p style="margin-top: 20px;">A Lixeira está vazia.</p>
+        </div>
+        <div class="window-statusbar">0 objetos</div>
+    </div>
+
+    <script>
+        // Initialize
+        let zIndexCounter = 1;
+        let activeWindow = null;
+        let dragElement = null;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        // Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+        }
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Start Menu
+        const startButton = document.getElementById('startButton');
+        const startMenu = document.getElementById('startMenu');
+
+        startButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            startMenu.classList.toggle('show');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!startMenu.contains(e.target) && e.target !== startButton) {
+                startMenu.classList.remove('show');
+            }
+        });
+
+        // Desktop Icons
+        document.querySelectorAll('.icon').forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
+                icon.classList.add('selected');
+            });
+
+            icon.addEventListener('dblclick', () => {
+                const program = icon.getAttribute('data-program');
+                openWindow(program);
+            });
+        });
+
+        // Deselect icons
+        document.getElementById('desktop').addEventListener('click', () => {
+            document.querySelectorAll('.icon').forEach(i => i.classList.remove('selected'));
+        });
+
+        // Start Menu Items
+        document.querySelectorAll('.start-menu-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const program = item.getAttribute('data-program');
+                if (program) {
+                    openWindow(program);
+                    startMenu.classList.remove('show');
+                }
+            });
+        });
+
+        // Open Window
+        function openWindow(program) {
+            const windowMap = {
+                'mycomputer': 'mycomputerWindow',
+                'notepad': 'notepadWindow',
+                'ie': 'ieWindow',
+                'minesweeper': 'minesweeperWindow',
+                'about': 'aboutWindow',
+                'recycle': 'recycleWindow'
+            };
+
+            const windowId = windowMap[program];
+            if (!windowId) return;
+
+            const windowEl = document.getElementById(windowId);
+            if (!windowEl) return;
+
+            windowEl.classList.remove('minimized');
+            windowEl.classList.add('show');
+            bringToFront(windowEl);
+            updateTaskbar();
+
+            if (program === 'minesweeper' && !windowEl.dataset.initialized) {
+                initMinesweeper();
+                windowEl.dataset.initialized = 'true';
+            }
+        }
+
+        // Window Controls
+        document.querySelectorAll('.window').forEach(windowEl => {
+            const titlebar = windowEl.querySelector('.window-titlebar');
+            const minimizeBtn = windowEl.querySelector('.minimize');
+            const maximizeBtn = windowEl.querySelector('.maximize');
+            const closeBtn = windowEl.querySelector('.close');
+
+            // Drag window
+            titlebar.addEventListener('mousedown', (e) => {
+                if (e.target.classList.contains('window-button')) return;
+                
+                dragElement = windowEl;
+                dragOffsetX = e.clientX - windowEl.offsetLeft;
+                dragOffsetY = e.clientY - windowEl.offsetTop;
+                bringToFront(windowEl);
+            });
+
+            // Bring to front on click
+            windowEl.addEventListener('mousedown', () => {
+                bringToFront(windowEl);
+            });
+
+            // Close
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    windowEl.classList.remove('show');
+                    updateTaskbar();
+                });
+            }
+
+            // Minimize
+            if (minimizeBtn) {
+                minimizeBtn.addEventListener('click', () => {
+                    windowEl.classList.add('minimized');
+                    updateTaskbar();
+                });
+            }
+
+            // Maximize (simple toggle)
+            if (maximizeBtn) {
+                maximizeBtn.addEventListener('click', () => {
+                    if (windowEl.style.width === '100%') {
+                        windowEl.style.width = '500px';
+                        windowEl.style.height = '400px';
+                        windowEl.style.left = '100px';
+                        windowEl.style.top = '50px';
+                    } else {
+                        windowEl.style.width = 'calc(100% - 4px)';
+                        windowEl.style.height = 'calc(100vh - 44px)';
+                        windowEl.style.left = '0';
+                        windowEl.style.top = '0';
+                    }
+                });
+            }
+        });
+
+        // Mouse move for dragging
+        document.addEventListener('mousemove', (e) => {
+            if (dragElement) {
+                const newX = e.clientX - dragOffsetX;
+                const newY = e.clientY - dragOffsetY;
+                
+                dragElement.style.left = Math.max(0, Math.min(newX, window.innerWidth - 100)) + 'px';
+                dragElement.style.top = Math.max(0, Math.min(newY, window.innerHeight - 100)) + 'px';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            dragElement = null;
+        });
+
+        // Bring window to front
+        function bringToFront(windowEl) {
+            document.querySelectorAll('.window').forEach(w => w.classList.add('inactive'));
+            windowEl.classList.remove('inactive');
+            windowEl.style.zIndex = ++zIndexCounter;
+            activeWindow = windowEl;
+        }
+
+        // Update taskbar
+        function updateTaskbar() {
+            const taskbarItems = document.getElementById('taskbarItems');
+            taskbarItems.innerHTML = '';
+
+            document.querySelectorAll('.window.show').forEach(windowEl => {
+                const title = windowEl.querySelector('.window-title').textContent;
+                const icon = windowEl.querySelector('.window-titlebar img').src;
+                const isMinimized = windowEl.classList.contains('minimized');
+
+                const taskbarItem = document.createElement('div');
+                taskbarItem.className = 'taskbar-item';
+                if (!isMinimized && windowEl === activeWindow) {
+                    taskbarItem.classList.add('active');
+                }
+
+                taskbarItem.innerHTML = `
+                    <img src="${icon}" alt="">
+                    <span>${title}</span>
+                `;
+
+                taskbarItem.addEventListener('click', () => {
+                    if (windowEl.classList.contains('minimized')) {
+                        windowEl.classList.remove('minimized');
+                        bringToFront(windowEl);
+                    } else if (windowEl === activeWindow) {
+                        windowEl.classList.add('minimized');
+                    } else {
+                        bringToFront(windowEl);
+                    }
+                    updateTaskbar();
+                });
+
+                taskbarItems.appendChild(taskbarItem);
+            });
+        }
+
+        // Minesweeper Game
+        let mineBoard = [];
+        let mineRevealed = 0;
+        let mineTimer = 0;
+        let mineTimerInterval = null;
+        const ROWS = 8;
+        const COLS = 8;
+        const MINES = 10;
+
+        function initMinesweeper() {
+            createMineBoard();
+            renderMineBoard();
+        }
+
+        function createMineBoard() {
+            mineBoard = [];
+            mineRevealed = 0;
+            mineTimer = 0;
+            clearInterval(mineTimerInterval);
+
+            // Create empty board
+            for (let i = 0; i < ROWS; i++) {
+                mineBoard[i] = [];
+                for (let j = 0; j < COLS; j++) {
+                    mineBoard[i][j] = {
+                        mine: false,
+                        revealed: false,
+                        flagged: false,
+                        adjacentMines: 0
+                    };
+                }
+            }
+
+            // Place mines
+            let minesPlaced = 0;
+            while (minesPlaced < MINES) {
+                const row = Math.floor(Math.random() * ROWS);
+                const col = Math.floor(Math.random() * COLS);
+                if (!mineBoard[row][col].mine) {
+                    mineBoard[row][col].mine = true;
+                    minesPlaced++;
+                }
+            }
+
+            // Calculate adjacent mines
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    if (!mineBoard[i][j].mine) {
+                        let count = 0;
+                        for (let di = -1; di <= 1; di++) {
+                            for (let dj = -1; dj <= 1; dj++) {
+                                const ni = i + di;
+                                const nj = j + dj;
+                                if (ni >= 0 && ni < ROWS && nj >= 0 && nj < COLS && mineBoard[ni][nj].mine) {
+                                    count++;
+                                }
+                            }
+                        }
+                        mineBoard[i][j].adjacentMines = count;
+                    }
+                }
+            }
+        }
+
+        function renderMineBoard() {
+            const boardEl = document.getElementById('mineBoard');
+            boardEl.innerHTML = '';
+
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'mine-cell';
+                    cell.dataset.row = i;
+                    cell.dataset.col = j;
+
+                    const cellData = mineBoard[i][j];
+                    if (cellData.revealed) {
+                        cell.classList.add('revealed');
+                        if (cellData.mine) {
+                            cell.textContent = '💣';
+                            cell.classList.add('mine');
+                        } else if (cellData.adjacentMines > 0) {
+                            cell.textContent = cellData.adjacentMines;
+                            const colors = ['', 'blue', 'green', 'red', 'darkblue', 'darkred', 'cyan', 'black', 'gray'];
+                            cell.style.color = colors[cellData.adjacentMines];
+                        }
+                    } else if (cellData.flagged) {
+                        cell.textContent = '🚩';
+                    }
+
+                    cell.addEventListener('click', () => revealCell(i, j));
+                    cell.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                        toggleFlag(i, j);
+                    });
+
+                    boardEl.appendChild(cell);
+                }
+            }
+        }
+
+        function revealCell(row, col) {
+            const cell = mineBoard[row][col];
+            if (cell.revealed || cell.flagged) return;
+
+            if (mineRevealed === 0) {
+                startMineTimer();
+            }
+
+            cell.revealed = true;
+            mineRevealed++;
+
+            if (cell.mine) {
+                gameOver(false);
+                return;
+            }
+
+            if (cell.adjacentMines === 0) {
+                for (let di = -1; di <= 1; di++) {
+                    for (let dj = -1; dj <= 1; dj++) {
+                        const ni = row + di;
+                        const nj = col + dj;
+                        if (ni >= 0 && ni < ROWS && nj >= 0 && nj < COLS) {
+                            revealCell(ni, nj);
+                        }
+                    }
+                }
+            }
+
+            renderMineBoard();
+            checkWin();
+        }
+
+        function toggleFlag(row, col) {
+            const cell = mineBoard[row][col];
+            if (cell.revealed) return;
+            cell.flagged = !cell.flagged;
+            renderMineBoard();
+        }
+
+        function startMineTimer() {
+            mineTimerInterval = setInterval(() => {
+                mineTimer++;
+                document.querySelector('.mine-timer').textContent = String(mineTimer).padStart(3, '0');
+            }, 1000);
+        }
+
+        function gameOver(won) {
+            clearInterval(mineTimerInterval);
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    mineBoard[i][j].revealed = true;
+                }
+            }
+            renderMineBoard();
+            document.querySelector('.mine-face').textContent = won ? '😎' : '😵';
+        }
+
+        function checkWin() {
+            let unrevealedSafe = 0;
+            for (let i = 0; i < ROWS; i++) {
+                for (let j = 0; j < COLS; j++) {
+                    if (!mineBoard[i][j].mine && !mineBoard[i][j].revealed) {
+                        unrevealedSafe++;
+                    }
+                }
+            }
+            if (unrevealedSafe === 0) {
+                gameOver(true);
+            }
+        }
+
+        function resetMinesweeper() {
+            createMineBoard();
+            renderMineBoard();
+            document.querySelector('.mine-face').textContent = '🙂';
+            document.querySelector('.mine-timer').textContent = '000';
+        }
+
+        // Initialize IE content
+        setTimeout(() => {
+            const ieFrame = document.querySelector('.ie-content-frame');
+            const frameDoc = ieFrame.contentDocument || ieFrame.contentWindow.document;
+            frameDoc.open();
+            frameDoc.write(`
+                <html>
+                <head>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            padding: 20px;
+                            background: white;
+                        }
+                        h1 {
+                            color: #000080;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Bem-vindo ao Internet Explorer</h1>
+                    <p>Esta é uma simulação do navegador Internet Explorer do Windows 95.</p>
+                    <p><a href="#">Página Inicial da Microsoft</a></p>
+                    <p><a href="#">MSN</a></p>
+                    <p><a href="#">Hotmail</a></p>
+                    <hr>
+                    <p style="font-size: 12px; color: #666;">Internet Explorer 4.0 - © 1995-1997 Microsoft Corporation</p>
+                </body>
+                </html>
+            `);
+            frameDoc.close();
+        }, 100);
+    </script>
 </body>
 </html>
