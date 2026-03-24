@@ -9,15 +9,15 @@ Uma recriação completa e funcional do Windows 95 utilizando apenas HTML, CSS e
 
 ## 🌟 Demonstração
 
-🔗 **[Acesse a demo ao vivo](https://seu-usuario.github.io/seu-repositorio)**
+🔗 **[Acesse a demo ao vivo](https://fernando-silvano.github.io/)**
 
 ## ✨ Características
 
 ### 🎮 Interface Autêntica
-- **Desktop funcional** com ícones arrastáveis
+- **Desktop funcional** com ícones clicáveis
 - **Barra de tarefas** com relógio em tempo real
 - **Menu Iniciar** com efeitos hover e gradiente original
-- **Janelas draggáveis** com controles de minimizar, maximizar e fechar
+- **Janelas arrastáveis** com controles de minimizar, maximizar e fechar
 - **Estilo visual 100% fiel** ao Windows 95 original
 
 ### 🚀 Sequência de Boot Realista
@@ -139,9 +139,10 @@ npx serve
    - Senha: `github`
 
 ### Navegação
+- **Clique simples** nos ícones para selecioná-los
 - **Duplo clique** nos ícones do desktop para abrir programas
 - **Menu Iniciar** → Clique em "Iniciar" na barra de tarefas
-- **Arraste janelas** pela barra de título
+- **Arraste janelas** pela barra de título (apenas janelas, não ícones)
 - **Botões de controle** no canto superior direito das janelas:
   - `_` Minimizar
   - `□` Maximizar
@@ -172,6 +173,7 @@ npx serve
 
 ### Funcionalidades Técnicas
 - Sistema de z-index dinâmico para gerenciamento de janelas
+- Drag and drop para movimentação de janelas
 - Event delegation para performance
 - LocalStorage não utilizado (estado não persiste)
 - Sem dependências externas
@@ -179,6 +181,7 @@ npx serve
 
 ## 📝 Roadmap
 
+- [ ] Ícones arrastáveis no desktop
 - [ ] Adicionar sons do Windows 95
 - [ ] Paint simulado
 - [ ] Calculadora funcional
