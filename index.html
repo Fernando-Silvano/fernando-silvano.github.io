@@ -42,6 +42,13 @@
             margin-bottom: 5px;
         }
 
+        .icon svg, .icon .icon-img {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
         .icon-label {
             font-size: 12px;
             word-wrap: break-word;
@@ -445,19 +452,19 @@
     <!-- Desktop -->
     <div class="desktop" id="desktop">
         <div class="icon" data-program="mycomputer">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-3.png" alt="My Computer">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="Computer">
             <div class="icon-label">Meu Computador</div>
         </div>
         <div class="icon" data-program="recycle">
-            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" alt="Recycle Bin">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png" alt="Recycle">
             <div class="icon-label">Lixeira</div>
         </div>
         <div class="icon" data-program="ie">
-            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" alt="Internet Explorer">
+            <img src="https://win98icons.alexmeub.com/icons/png/msie1-3.png" alt="IE">
             <div class="icon-label">Internet Explorer</div>
         </div>
         <div class="icon" data-program="notepad">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" alt="Notepad">
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Notepad">
             <div class="icon-label">Bloco de Notas</div>
         </div>
         <div class="icon" data-program="minesweeper">
@@ -469,7 +476,7 @@
     <!-- Taskbar -->
     <div class="taskbar">
         <div class="start-button" id="startButton">
-            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" alt="Start">
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" alt="Start" style="width: 20px; height: 20px;">
             <span>Iniciar</span>
         </div>
         <div class="taskbar-items" id="taskbarItems"></div>
@@ -481,29 +488,29 @@
         <div class="start-menu-header">Windows 95</div>
         <div class="start-menu-items">
             <div class="start-menu-item" data-program="mycomputer">
-                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-3.png" alt="My Computer">
+                <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="Computer">
                 Meu Computador
             </div>
             <div class="start-menu-item" data-program="notepad">
-                <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" alt="Notepad">
+                <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Notepad">
                 Bloco de Notas
             </div>
             <div class="start-menu-item" data-program="ie">
-                <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" alt="Internet Explorer">
+                <img src="https://win98icons.alexmeub.com/icons/png/msie1-3.png" alt="IE">
                 Internet Explorer
             </div>
             <div class="start-menu-separator"></div>
             <div class="start-menu-item" data-program="minesweeper">
-                <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-1.png" alt="Games">
+                <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-1.png" alt="Mine">
                 Campo Minado
             </div>
             <div class="start-menu-separator"></div>
             <div class="start-menu-item" data-program="about">
-                <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" alt="About">
+                <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" alt="Info">
                 Sobre o Windows 95
             </div>
             <div class="start-menu-item" onclick="alert('Desligando o sistema...')">
-                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_with_computer-0.png" alt="Shutdown">
+                <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-1.png" alt="Shutdown">
                 Desligar...
             </div>
         </div>
@@ -512,7 +519,7 @@
     <!-- My Computer Window -->
     <div class="window" id="mycomputerWindow" style="width: 500px; height: 400px; left: 100px; top: 50px;">
         <div class="window-titlebar">
-            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-3.png" alt="My Computer">
+            <img src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="Computer">
             <span class="window-title">Meu Computador</span>
             <div class="window-controls">
                 <div class="window-button minimize">_</div>
@@ -522,23 +529,23 @@
         </div>
         <div class="window-content computer-content">
             <div class="drive-icon">
-                <img src="https://win98icons.alexmeub.com/icons/png/file_cabinet_filled-0.png" alt="C:">
+                <img src="https://win98icons.alexmeub.com/icons/png/directory_closed_cool-5.png" alt="C:">
                 <div>(C:)</div>
             </div>
             <div class="drive-icon">
-                <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-0.png" alt="D:">
+                <img src="https://win98icons.alexmeub.com/icons/png/cd_drive-1.png" alt="D:">
                 <div>(D:)</div>
             </div>
             <div class="drive-icon">
-                <img src="https://win98icons.alexmeub.com/icons/png/floppy_drive_3_hd-0.png" alt="A:">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='2' width='24' height='28' rx='1' fill='%23000080' stroke='%23000' stroke-width='1'/%3E%3Crect x='6' y='4' width='20' height='8' fill='%23404040'/%3E%3Crect x='8' y='24' width='16' height='4' rx='0.5' fill='%23c0c0c0'/%3E%3Ccircle cx='16' cy='26' r='1.5' fill='%23404040'/%3E%3Crect x='20' y='6' width='6' height='4' fill='%23c0c0c0'/%3E%3C/svg%3E" alt="A:">
                 <div>(A:)</div>
             </div>
             <div class="drive-icon">
-                <img src="https://win98icons.alexmeub.com/icons/png/printer-0.png" alt="Impressoras">
+                <img src="https://win98icons.alexmeub.com/icons/png/printer_network-4.png" alt="Impressoras">
                 <div>Impressoras</div>
             </div>
             <div class="drive-icon">
-                <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-0.png" alt="Painel de Controle">
+                <img src="https://win98icons.alexmeub.com/icons/png/settings_gear-0.png" alt="Painel">
                 <div>Painel de Controle</div>
             </div>
         </div>
@@ -548,7 +555,7 @@
     <!-- Notepad Window -->
     <div class="window" id="notepadWindow" style="width: 600px; height: 400px; left: 150px; top: 100px;">
         <div class="window-titlebar">
-            <img src="https://win98icons.alexmeub.com/icons/png/notepad-0.png" alt="Notepad">
+            <img src="https://win98icons.alexmeub.com/icons/png/notepad-2.png" alt="Notepad">
             <span class="window-title">Bloco de Notas - Sem título</span>
             <div class="window-controls">
                 <div class="window-button minimize">_</div>
@@ -564,7 +571,7 @@
     <!-- Internet Explorer Window -->
     <div class="window" id="ieWindow" style="width: 700px; height: 500px; left: 120px; top: 80px;">
         <div class="window-titlebar">
-            <img src="https://win98icons.alexmeub.com/icons/png/msie1-2.png" alt="Internet Explorer">
+            <img src="https://win98icons.alexmeub.com/icons/png/msie1-3.png" alt="IE">
             <span class="window-title">Internet Explorer</span>
             <div class="window-controls">
                 <div class="window-button minimize">_</div>
@@ -592,7 +599,7 @@
     <!-- Minesweeper Window -->
     <div class="window" id="minesweeperWindow" style="width: 300px; height: 400px; left: 200px; top: 120px;">
         <div class="window-titlebar">
-            <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-1.png" alt="Minesweeper">
+            <img src="https://win98icons.alexmeub.com/icons/png/minesweeper-1.png" alt="Mine">
             <span class="window-title">Campo Minado</span>
             <div class="window-controls">
                 <div class="window-button minimize">_</div>
@@ -612,7 +619,7 @@
     <!-- About Window -->
     <div class="window" id="aboutWindow" style="width: 450px; height: 300px; left: 250px; top: 150px;">
         <div class="window-titlebar">
-            <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" alt="About">
+            <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" alt="Info">
             <span class="window-title">Sobre o Windows 95</span>
             <div class="window-controls">
                 <div class="window-button close">×</div>
@@ -631,7 +638,7 @@
     <!-- Recycle Bin Window -->
     <div class="window" id="recycleWindow" style="width: 500px; height: 400px; left: 130px; top: 70px;">
         <div class="window-titlebar">
-            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" alt="Recycle Bin">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png" alt="Trash">
             <span class="window-title">Lixeira</span>
             <div class="window-controls">
                 <div class="window-button minimize">_</div>
@@ -640,7 +647,7 @@
             </div>
         </div>
         <div class="window-content" style="text-align: center; padding-top: 50px; color: #808080;">
-            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-0.png" width="64" height="64" alt="Empty">
+            <img src="https://win98icons.alexmeub.com/icons/png/recycle_bin_empty-4.png" width="64" height="64" alt="Empty">
             <p style="margin-top: 20px;">A Lixeira está vazia.</p>
         </div>
         <div class="window-statusbar">0 objetos</div>
@@ -823,7 +830,8 @@
 
             document.querySelectorAll('.window.show').forEach(windowEl => {
                 const title = windowEl.querySelector('.window-title').textContent;
-                const icon = windowEl.querySelector('.window-titlebar img').src;
+                const iconEl = windowEl.querySelector('.window-titlebar img');
+                const icon = iconEl ? iconEl.outerHTML : '';
                 const isMinimized = windowEl.classList.contains('minimized');
 
                 const taskbarItem = document.createElement('div');
@@ -833,7 +841,7 @@
                 }
 
                 taskbarItem.innerHTML = `
-                    <img src="${icon}" alt="">
+                    ${icon}
                     <span>${title}</span>
                 `;
 
