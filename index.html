@@ -555,15 +555,34 @@
             background: #000;
             color: #aaa;
             font-family: 'Courier New', monospace;
-            font-size: 14px;
+            font-size: 13px;
             padding: 20px;
             z-index: 30000;
             display: none;
             overflow: auto;
+            line-height: 1.4;
         }
 
         .bios-screen.show {
             display: block;
+        }
+
+        .bios-header {
+            color: #fff;
+            margin-bottom: 15px;
+        }
+
+        .bios-logo {
+            float: right;
+            color: #0f0;
+            font-size: 11px;
+            text-align: right;
+            line-height: 1.2;
+        }
+
+        .bios-error {
+            color: #fff;
+            margin: 5px 0;
         }
 
         .bios-cursor {
@@ -626,6 +645,71 @@
             color: #808080;
             margin-top: 20px;
             font-size: 14px;
+        }
+
+        /* Shutdown Screen - Windows 95 Style */
+        .shutdown-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #5b9bd5 0%, #87ceeb 50%, #b0d4e3 100%);
+            background-image: 
+                radial-gradient(ellipse at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(255,255,255,0.5) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(255,255,255,0.4) 0%, transparent 40%),
+                radial-gradient(ellipse at 60% 20%, rgba(255,255,255,0.3) 0%, transparent 30%),
+                linear-gradient(180deg, #5b9bd5 0%, #87ceeb 50%, #b0d4e3 100%);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 30000;
+        }
+
+        .shutdown-screen.show {
+            display: flex;
+        }
+
+        .shutdown-message {
+            font-family: Arial, sans-serif;
+            font-size: 32px;
+            color: #ff6347;
+            text-align: center;
+            margin-bottom: 60px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: normal;
+        }
+
+        .shutdown-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .shutdown-logo-text {
+            font-family: Arial, sans-serif;
+            font-weight: normal;
+        }
+
+        .shutdown-logo-microsoft {
+            font-size: 36px;
+            color: #000;
+        }
+
+        .shutdown-logo-windows {
+            font-size: 72px;
+            color: #000;
+            font-weight: bold;
+            letter-spacing: -2px;
+        }
+
+        .shutdown-logo-95 {
+            font-size: 72px;
+            color: #fff;
+            font-weight: normal;
+            margin-left: -10px;
         }
 
         /* Login Screen */
@@ -745,31 +829,138 @@
         body.booting .shutdown-overlay {
             display: none !important;
         }
+
+        /* Power Off Screen */
+        .poweroff-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 40000;
+        }
+
+        .poweroff-screen.show {
+            display: flex;
+        }
+
+        .power-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+            border: 3px solid #333;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.05);
+        }
+
+        .power-button:hover {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-color: #444;
+            box-shadow: 0 0 30px rgba(100, 100, 100, 0.3), inset 0 0 10px rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+
+        .power-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 15px rgba(100, 100, 100, 0.5), inset 0 0 15px rgba(255, 255, 255, 0.15);
+        }
+
+        .power-icon {
+            width: 28px;
+            height: 28px;
+            border: 3px solid #666;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .power-icon::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 16px;
+            background: #666;
+        }
+
+        .power-button:hover .power-icon,
+        .power-button:hover .power-icon::before {
+            border-color: #888;
+            background: #888;
+        }
+
+        .power-hint {
+            position: absolute;
+            bottom: 100px;
+            color: #333;
+            font-size: 11px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .power-button:hover + .power-hint {
+            opacity: 0.7;
+        }
     </style>
 </head>
 <body class="booting">
+    <!-- Power Off Screen -->
+    <div class="poweroff-screen show" id="poweroffScreen">
+        <div>
+            <div class="power-button" id="powerButton" onclick="powerOn()">
+                <div class="power-icon"></div>
+            </div>
+            <div class="power-hint">Pressione para ligar</div>
+        </div>
+    </div>
+
     <!-- BIOS Screen -->
     <div class="bios-screen" id="biosScreen">
-        <pre>Award Modular BIOS v4.51PG
-Copyright (C) 1984-95, Award Software, Inc.
+        <div class="bios-header">
+            <span style="color: #00ffff;">Phoenix</span> - <span style="color: #ffff00;">AwardBIOS</span> v6.00PG, An <span style="color: #00ff00;">Energy Star Ally</span><br>
+            Copyright (C) 1984-2025, Phoenix Technologies, LTD
+        </div>
+        <div class="bios-logo" style="margin-top: -60px;">
+            <pre style="color: #0f0; font-size: 9px; line-height: 1;">    _____
+   /     \
+  | ★ | ★ |
+   \_____/
+  ENERGY★STAR
+EPA POLLUTION
+  PREVENTER</pre>
+        </div>
+        <br>
+        <pre style="line-height: 1.3;">ASUS A8N-SLI Premium ACPI BIOS Revision 1023-002
 
+Main Processor  : AMD Athlon(tm) 64 Processor 2900+
+Memory Testing  : 131072K OK (Installed Memory)
 
-Pentium-S CPU at 133 MHz
-Memory Test: 16384K OK
+Chipset Model   : nForce 9
+Primary IDE Master   : WDC WD2500JD-22HB 6.00.100
+Primary IDE Slave    : Media Error
+Secondary IDE Master : None
+Secondary IDE Slave  : Media Error
 
-Award Plug and Play BIOS Extension v1.0A
-Copyright (C) 1995, Award Software, Inc.
+<span class="bios-error">Error 0211: Keyboard not found
+Error 0242: Battery Failure
+Error 0201: Primary Slave Hard Disc Error</span>
 
-Detecting IDE Primary Master  ... WDC AC31600H
-Detecting IDE Primary Slave   ... None
-Detecting IDE Secondary Master... ATAPI CD-ROM
-Detecting IDE Secondary Slave ... None
-
-Press DEL to enter SETUP
+Press F1 to continue, DEL to enter SETUP
+12/08/2004-NF-CK804-6A9SLI-P-00
 
 Booting from Hard Disk...
 
-Starting Windows 95<span class="bios-cursor">_</span></pre>
+<span style="color: #fff;">Starting Windows 95</span><span class="bios-cursor">_</span></pre>
     </div>
 
     <!-- Windows Loading Screen -->
@@ -782,6 +973,19 @@ Starting Windows 95<span class="bios-cursor">_</span></pre>
             <div class="loading-bar"></div>
         </div>
         <div class="loading-text">Carregando...</div>
+    </div>
+
+    <!-- Shutdown Screen -->
+    <div class="shutdown-screen" id="shutdownScreen">
+        <div class="shutdown-message">Please wait while your computer<br>shuts down.</div>
+        <div class="shutdown-logo">
+            <div class="shutdown-logo-text">
+                <div class="shutdown-logo-microsoft">Microsoft</div>
+            </div>
+            <div class="shutdown-logo-text">
+                <span class="shutdown-logo-windows">Windows</span><span class="shutdown-logo-95">95</span>
+            </div>
+        </div>
     </div>
 
     <!-- Login Screen -->
@@ -1061,15 +1265,25 @@ Starting Windows 95<span class="bios-cursor">_</span></pre>
 
     <script>
         // Boot Sequence
+        const poweroffScreen = document.getElementById('poweroffScreen');
         const biosScreen = document.getElementById('biosScreen');
         const loadingScreen = document.getElementById('loadingScreen');
+        const shutdownScreen = document.getElementById('shutdownScreen');
         const loginScreen = document.getElementById('loginScreen');
         const passwordInput = document.getElementById('password');
         const loginError = document.getElementById('loginError');
 
-        // Start boot sequence on page load
+        // Power on function
+        function powerOn() {
+            poweroffScreen.classList.remove('show');
+            setTimeout(() => {
+                startBootSequence();
+            }, 200);
+        }
+
+        // Start boot sequence on page load - now starts from power off screen
         window.addEventListener('load', () => {
-            startBootSequence();
+            // Page loads with power off screen already visible
         });
 
         function startBootSequence() {
@@ -1520,13 +1734,23 @@ Starting Windows 95<span class="bios-cursor">_</span></pre>
             const selectedOption = document.querySelector('input[name="shutdown"]:checked').value;
             
             if (selectedOption === 'shutdown') {
-                // Fechar a aba/janela do navegador
-                window.close();
-                // Se window.close() não funcionar (algumas restrições de segurança), tenta alternativas
+                // Esconder dialog primeiro
+                hideShutdownDialog();
+                
+                // Mostrar tela de desligamento com nuvens PRIMEIRO
+                shutdownScreen.classList.add('show');
+                
+                // Depois de um pequeno delay, esconder desktop e janelas
                 setTimeout(() => {
-                    window.open('', '_self', '');
-                    window.close();
+                    document.body.classList.add('booting');
+                    document.querySelectorAll('.window.show').forEach(w => w.classList.remove('show'));
                 }, 100);
+                
+                // Após 3 segundos, mostrar tela preta com botão power
+                setTimeout(() => {
+                    shutdownScreen.classList.remove('show');
+                    poweroffScreen.classList.add('show');
+                }, 3000);
             } else if (selectedOption === 'restart') {
                 // Recarregar a página (simula reiniciar)
                 location.reload();
