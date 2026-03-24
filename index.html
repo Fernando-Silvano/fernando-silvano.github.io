@@ -447,9 +447,376 @@
             border: none;
             background: white;
         }
+
+        /* Shutdown Dialog */
+        .shutdown-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 20000;
+        }
+
+        .shutdown-overlay.show {
+            display: flex;
+        }
+
+        .shutdown-dialog {
+            width: 420px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .shutdown-titlebar {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: white;
+            padding: 3px 5px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .shutdown-content {
+            padding: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .shutdown-icon {
+            width: 48px;
+            height: 48px;
+            flex-shrink: 0;
+        }
+
+        .shutdown-text {
+            flex: 1;
+        }
+
+        .shutdown-text h3 {
+            margin: 0 0 10px 0;
+            font-size: 13px;
+        }
+
+        .shutdown-options {
+            margin: 10px 0;
+        }
+
+        .shutdown-option {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .shutdown-option input[type="radio"] {
+            margin: 0;
+        }
+
+        .shutdown-option label {
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .shutdown-buttons {
+            padding: 10px 20px 20px 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .shutdown-btn {
+            min-width: 80px;
+            padding: 5px 15px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .shutdown-btn:active {
+            border-style: inset;
+        }
+
+        /* BIOS Screen */
+        .bios-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            color: #aaa;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 20px;
+            z-index: 30000;
+            display: none;
+            overflow: auto;
+        }
+
+        .bios-screen.show {
+            display: block;
+        }
+
+        .bios-cursor {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Windows Loading Screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 30000;
+        }
+
+        .loading-screen.show {
+            display: flex;
+        }
+
+        .loading-logo {
+            color: white;
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .loading-bar-container {
+            width: 300px;
+            height: 20px;
+            background: #000;
+            border: 2px solid #808080;
+            position: relative;
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(to right, #000080, #0000ff);
+            width: 0%;
+            animation: loading 3s ease-in-out forwards;
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        .loading-text {
+            color: #808080;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        /* Login Screen */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #008080;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 30000;
+        }
+
+        .login-screen.show {
+            display: flex;
+        }
+
+        .login-dialog {
+            width: 420px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .login-titlebar {
+            background: linear-gradient(to right, #000080, #1084d0);
+            color: white;
+            padding: 3px 5px;
+            font-weight: bold;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .login-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+        }
+
+        .login-content h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .login-content p {
+            font-size: 12px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .login-field {
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .login-field label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .login-field input {
+            width: 100%;
+            padding: 5px;
+            border: 2px inset #dfdfdf;
+            font-size: 12px;
+            font-family: 'MS Sans Serif', Arial, sans-serif;
+        }
+
+        .login-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .login-btn {
+            min-width: 80px;
+            padding: 5px 15px;
+            background: #c0c0c0;
+            border: 2px outset #dfdfdf;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-btn:active {
+            border-style: inset;
+        }
+
+        .login-error {
+            color: red;
+            font-size: 11px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        /* Hide desktop initially */
+        body.booting .desktop,
+        body.booting .taskbar,
+        body.booting .start-menu,
+        body.booting .window,
+        body.booting .shutdown-overlay {
+            display: none !important;
+        }
     </style>
 </head>
-<body>
+<body class="booting">
+    <!-- BIOS Screen -->
+    <div class="bios-screen" id="biosScreen">
+        <pre>Award Modular BIOS v4.51PG
+Copyright (C) 1984-95, Award Software, Inc.
+
+
+Pentium-S CPU at 133 MHz
+Memory Test: 16384K OK
+
+Award Plug and Play BIOS Extension v1.0A
+Copyright (C) 1995, Award Software, Inc.
+
+Detecting IDE Primary Master  ... WDC AC31600H
+Detecting IDE Primary Slave   ... None
+Detecting IDE Secondary Master... ATAPI CD-ROM
+Detecting IDE Secondary Slave ... None
+
+Press DEL to enter SETUP
+
+Booting from Hard Disk...
+
+Starting Windows 95<span class="bios-cursor">_</span></pre>
+    </div>
+
+    <!-- Windows Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <img src="https://win98icons.alexmeub.com/icons/png/windows-0.png" width="64" height="64" alt="Windows">
+            <div style="margin-top: 20px;">Microsoft Windows 95</div>
+        </div>
+        <div class="loading-bar-container">
+            <div class="loading-bar"></div>
+        </div>
+        <div class="loading-text">Carregando...</div>
+    </div>
+
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-dialog">
+            <div class="login-titlebar">
+                Fazer logon no Windows
+            </div>
+            <div class="login-content">
+                <img class="login-icon" src="https://win98icons.alexmeub.com/icons/png/key_win-0.png" alt="Login">
+                <h2>Bem-vindo ao Windows</h2>
+                <p>Digite seu nome de usuário e senha</p>
+                
+                <div class="login-field">
+                    <label for="username">Nome de usuário:</label>
+                    <input type="text" id="username" value="administrador" autocomplete="off">
+                </div>
+                
+                <div class="login-field">
+                    <label for="password">Senha:</label>
+                    <input type="password" id="password" autocomplete="off">
+                </div>
+                
+                <div class="login-error" id="loginError">
+                    Nome de usuário ou senha inválidos. Tente novamente.
+                </div>
+                
+                <div class="login-buttons">
+                    <button class="login-btn" onclick="handleLogin()">OK</button>
+                    <button class="login-btn" onclick="location.reload()">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Desktop -->
     <div class="desktop" id="desktop">
         <div class="icon" data-program="mycomputer">
@@ -510,7 +877,7 @@
                 <img src="https://win98icons.alexmeub.com/icons/png/msg_information-0.png" alt="Info">
                 Sobre o Windows 95
             </div>
-            <div class="start-menu-item" onclick="alert('Desligando o sistema...')">
+            <div class="start-menu-item" onclick="showShutdownDialog()">
                 <img src="https://win98icons.alexmeub.com/icons/png/shut_down_normal-1.png" alt="Shutdown">
                 Desligar...
             </div>
@@ -654,7 +1021,106 @@
         <div class="window-statusbar">0 objetos</div>
     </div>
 
+    <!-- Shutdown Dialog -->
+    <div class="shutdown-overlay" id="shutdownOverlay">
+        <div class="shutdown-dialog">
+            <div class="shutdown-titlebar">
+                Desligar o Windows
+            </div>
+            <div class="shutdown-content">
+                <img class="shutdown-icon" src="https://win98icons.alexmeub.com/icons/png/computer_explorer-5.png" alt="Computer">
+                <div class="shutdown-text">
+                    <h3>Tem certeza de que deseja:</h3>
+                    <div class="shutdown-options">
+                        <div class="shutdown-option">
+                            <input type="radio" id="shutdown1" name="shutdown" value="shutdown" checked>
+                            <label for="shutdown1">Desligar o computador?</label>
+                        </div>
+                        <div class="shutdown-option">
+                            <input type="radio" id="shutdown2" name="shutdown" value="restart">
+                            <label for="shutdown2">Reiniciar o computador?</label>
+                        </div>
+                        <div class="shutdown-option">
+                            <input type="radio" id="shutdown3" name="shutdown" value="msdos">
+                            <label for="shutdown3">Reiniciar o computador em modo MS-DOS?</label>
+                        </div>
+                        <div class="shutdown-option">
+                            <input type="radio" id="shutdown4" name="shutdown" value="close">
+                            <label for="shutdown4">Fechar todos os programas e fazer logon como um usuário diferente?</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="shutdown-buttons">
+                <button class="shutdown-btn" onclick="confirmShutdown()">Sim</button>
+                <button class="shutdown-btn" onclick="hideShutdownDialog()">Não</button>
+                <button class="shutdown-btn" onclick="alert('Ajuda: Selecione uma opção e clique em Sim para continuar.')">Ajuda</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Boot Sequence
+        const biosScreen = document.getElementById('biosScreen');
+        const loadingScreen = document.getElementById('loadingScreen');
+        const loginScreen = document.getElementById('loginScreen');
+        const passwordInput = document.getElementById('password');
+        const loginError = document.getElementById('loginError');
+
+        // Start boot sequence on page load
+        window.addEventListener('load', () => {
+            startBootSequence();
+        });
+
+        function startBootSequence() {
+            // Show BIOS screen
+            biosScreen.classList.add('show');
+            
+            // After 3 seconds, show loading screen
+            setTimeout(() => {
+                biosScreen.classList.remove('show');
+                loadingScreen.classList.add('show');
+                
+                // After 3 seconds, show login screen
+                setTimeout(() => {
+                    loadingScreen.classList.remove('show');
+                    loginScreen.classList.add('show');
+                    passwordInput.focus();
+                }, 3000);
+            }, 3000);
+        }
+
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'administrador' && password === 'github') {
+                loginError.classList.remove('show');
+                loginScreen.classList.remove('show');
+                document.body.classList.remove('booting');
+                // Start the clock after successful login
+                updateClock();
+                setInterval(updateClock, 1000);
+            } else {
+                loginError.classList.add('show');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        // Allow Enter key to submit login
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLogin();
+            }
+        });
+
+        document.getElementById('username').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                passwordInput.focus();
+            }
+        });
+
         // Initialize
         let zIndexCounter = 1;
         let activeWindow = null;
@@ -669,8 +1135,7 @@
             const minutes = String(now.getMinutes()).padStart(2, '0');
             document.getElementById('clock').textContent = `${hours}:${minutes}`;
         }
-        updateClock();
-        setInterval(updateClock, 1000);
+        // Clock will start after successful login
 
         // Start Menu
         const startButton = document.getElementById('startButton');
@@ -1040,6 +1505,46 @@
             document.querySelector('.mine-face').textContent = '🙂';
             document.querySelector('.mine-timer').textContent = '000';
         }
+
+        // Shutdown Dialog
+        function showShutdownDialog() {
+            document.getElementById('shutdownOverlay').classList.add('show');
+            startMenu.classList.remove('show');
+        }
+
+        function hideShutdownDialog() {
+            document.getElementById('shutdownOverlay').classList.remove('show');
+        }
+
+        function confirmShutdown() {
+            const selectedOption = document.querySelector('input[name="shutdown"]:checked').value;
+            
+            if (selectedOption === 'shutdown') {
+                // Fechar a aba/janela do navegador
+                window.close();
+                // Se window.close() não funcionar (algumas restrições de segurança), tenta alternativas
+                setTimeout(() => {
+                    window.open('', '_self', '');
+                    window.close();
+                }, 100);
+            } else if (selectedOption === 'restart') {
+                // Recarregar a página (simula reiniciar)
+                location.reload();
+            } else if (selectedOption === 'msdos') {
+                // Criar uma tela preta simulando MS-DOS
+                document.body.innerHTML = '<div style="background: black; color: white; font-family: \'Courier New\', monospace; padding: 20px; height: 100vh;">C:\\WINDOWS><span style="animation: blink 1s infinite;">_</span></div>';
+            } else if (selectedOption === 'close') {
+                // Fazer logoff (recarregar)
+                location.reload();
+            }
+        }
+
+        // Fechar dialog ao clicar fora
+        document.getElementById('shutdownOverlay').addEventListener('click', (e) => {
+            if (e.target.id === 'shutdownOverlay') {
+                hideShutdownDialog();
+            }
+        });
 
         // Initialize IE content
         setTimeout(() => {
